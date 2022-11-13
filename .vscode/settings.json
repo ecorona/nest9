@@ -1,0 +1,38 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescrypt]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "emmet.includeLanguages": {
+    "hbs": "html"
+  },
+  "files.associations": {
+    "*.hbs": "html"
+  },
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "bug"
+    },
+    "HACK": {
+      "icon": "tools"
+    },
+    "FIXME": {
+      "icon": "flame"
+    },
+    "XXX": {
+      "icon": "$(close)"
+    }
+  },
+  "files.watcherExclude": {
+    "**/.dist/**": true,
+    "**/test/**": true,
+    "**/uploads/**": true
+  }
+}
