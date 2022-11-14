@@ -2,6 +2,7 @@ import { hash, compare } from "bcrypt";
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -125,5 +126,10 @@ export class UsuarioEntity {
 
   async hashPassword() {
     this.password = await hash(this.password, 10);
+  }
+
+  @BeforeInsert()
+  beforeInsert() {
+    this.email = this.email.trim().toLowerCase();
   }
 }
