@@ -1,3 +1,4 @@
+import { JwtGuard } from "./../auth/jwt/jwt.guard";
 import { UsuarioRepository } from "./usuarios.repository";
 import { UsuarioEntity } from "./entities/usuario.entity";
 import {
@@ -13,7 +14,7 @@ import {
   ParseIntPipe,
   ClassSerializerInterceptor,
   UseInterceptors,
-  Req,
+  UseGuards,
 } from "@nestjs/common";
 import { CreateUsuarioDto } from "./dto/create-usuario.dto";
 import { UpdateUsuarioDto } from "./dto/update-usuario.dto";
@@ -28,7 +29,7 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import { DeleteResult, UpdateResult } from "typeorm";
-import { Request } from "express";
+import { SesionJWT } from "../auth/jwt/sesion-jwt.decorator";
 @Controller("usuarios")
 @ApiTags("usuarios")
 export class UsuariosController {
@@ -71,6 +72,7 @@ export class UsuariosController {
     }
   }
 
+  @UseGuards(JwtGuard)
   @ApiOperation({
     description: "Obtener todos los usuarios",
   })
@@ -85,6 +87,7 @@ export class UsuariosController {
     return this.usuarioRepository.find();
   }
 
+  @UseGuards(JwtGuard)
   @ApiOperation({
     description: "Obtener un usuario por su id",
   })
@@ -103,6 +106,7 @@ export class UsuariosController {
     return this.usuarioRepository.findOne({ where: { id } });
   }
 
+  @UseGuards(JwtGuard)
   @ApiOperation({
     description: "Obtener un usuario por su email",
   })
@@ -121,6 +125,7 @@ export class UsuariosController {
     return this.usuarioRepository.findByEmail(email);
   }
 
+  @UseGuards(JwtGuard)
   @ApiOperation({
     description: "Actualizar un usuario por su id",
   })
@@ -148,6 +153,7 @@ export class UsuariosController {
     return this.usuarioRepository.update({ id }, updateUsuarioDto);
   }
 
+  @UseGuards(JwtGuard)
   @ApiOperation({
     description: "Eliminar un usuario por su id",
   })
@@ -165,10 +171,10 @@ export class UsuariosController {
     return this.usuarioRepository.delete({ id });
   }
 
+  @UseGuards(JwtGuard)
   @Get("me/identity")
-  getIdentity(@Req() req: Request) {
-    //validar token de headers
-    console.log("AUTH:", req.headers.authorization);
-    return "identity";
+  @UseInterceptors(ClassSerializerInterceptor)
+  getIdentity(@SesionJWT() usuario: UsuarioEntity): UsuarioEntity {
+    return usuario;
   }
 }

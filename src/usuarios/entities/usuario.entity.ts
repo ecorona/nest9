@@ -116,6 +116,7 @@ export class UsuarioEntity {
     type: Date,
   })
   @DeleteDateColumn()
+  @Exclude()
   deletedAt: Date;
 
   async checkPassword(password: string): Promise<boolean> {

@@ -7,13 +7,14 @@ import { JwtModule } from "@nestjs/jwt";
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([UsuarioRepository]),
     JwtModule.register({
       secret: "llave secreta para los JWT",
       signOptions: { expiresIn: "1h" },
     }),
-    TypeOrmModule.forFeature([UsuarioRepository]),
   ],
   controllers: [AuthController],
   providers: [AuthService, UsuarioRepository],
+  exports: [JwtModule, AuthService],
 })
 export class AuthModule {}

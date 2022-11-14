@@ -25,5 +25,6 @@ import { UsuariosModule } from "./usuarios/usuarios.module";
   ],
   controllers: [],
   providers: [],
+  exports: [],
 })
 export class AppModule {}

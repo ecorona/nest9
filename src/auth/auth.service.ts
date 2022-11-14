@@ -1,3 +1,4 @@
+import { UsuarioEntity } from "src/usuarios/entities/usuario.entity";
 import { JwtPayload } from "./dto/jwt-payload.dto";
 import { LoginResponse } from "./dto/login-response.dto";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
@@ -33,5 +34,10 @@ export class AuthService {
       }),
       usuario: omit(usuario, ["password"]),
     };
+  }
+
+  async validateToken(token: string): Promise<UsuarioEntity> {
+    const payload: JwtPayload = this.jwtService.verify(token);
+    return this.usuarioRepository.findByEmail(payload.email);
   }
 }
