@@ -2,7 +2,7 @@ import { UsuarioEntity } from "src/usuarios/entities/usuario.entity";
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 /**
  * El objetivo de este decorador es para obtener el usuario que
- * se encuentra en el req, (puesto ahi por passport) una vez que
+ * se encuentra en el req, (puesto ahi por el guard JWT) una vez que
  * es autenticado su token, se usa a nivel método de controller.
  */
 export const SesionJWT = createParamDecorator(
